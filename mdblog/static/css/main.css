@@ -1,0 +1,28 @@
+body {
+    padding: 0 20%;
+}
+
+header {
+    text-align: center;
+}
+
+.nav {
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    text-align: center;
+}
+
+.nav li {
+    display: inline;
+}
+
+.nav a {
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+}
