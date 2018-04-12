@@ -21,7 +21,7 @@ def view_admin():
 def view_articles():
     return render_template("articles.jinja", articles=articles.items())
 
-@flask_app.route("/articles/<int:art_id>")
+@flask_app.route("/articles/<int:art_id>/")
 def view_article(art_id):
     article = articles.get(art_id)
     if article:
