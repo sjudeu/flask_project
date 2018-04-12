@@ -1,33 +1,9 @@
-<!doctype html>
-<html lang="en">
+{% extends "_main.jinja" %}
 
-<head>
-    <title> Welcome to Markdown blog </title>
-    <link rel="stylesheet" type="text/css" href={{url_for("static", filename="css/main.css")}}>
-</head>
+{% block title %} Welcome to Markdown blog {% endblock %}
 
-<body>
-<header>
-    <h1> Severin Murcina </h1>
-</header>
 
-<nav>
-    <ul class=nav>
-      <li> <a href="#">About</a> </li>
-      <li> <a href="#">Articles</a> </li>
-      <li> <a href="#">Admin</a> </li>
-    </ul>
-</nav>
-
-<main>
+{% block main %}
     Hi, I'm Severin Murcina, friends call me Murci. I am from slovakia and I am
     cool.
-</main>
-
-<footer>
-    <p>
-        (c) 2018 Severín Murcina
-    </p>
-</footer>
-</body>
-</html>
+{% endblock %}
