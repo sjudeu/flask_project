@@ -6,9 +6,9 @@
 {% block main %}
     {% if articles %}
         <ul>
-        {% for id, article in articles %}
+        {% for article in articles %}
             <li>
-                <h2><a href="{{ url_for("view_article", art_id=id) }}"> {{ article.title }} </a></h2>
+                <h2><a href="{{ url_for("view_article", art_id=article.id) }}"> {{ article.title }} </a></h2>
                 <p> {{ article.content | truncate(100) }} </p>
             </li>
         {% endfor %}

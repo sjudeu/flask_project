@@ -1,0 +1,3 @@
+SECRET_KEY = b'\x8eJ|P7\x8c\xe6X\xb3\x9c\xaf\x17C\xbaz\x17\xbb\xc81`_\xe3\xac\xc2'
+USERNAME = "admin"
+PASSWORD = "admin"
