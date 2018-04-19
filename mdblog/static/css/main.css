@@ -31,3 +31,28 @@ header {
 footer {
     text-align: center;
 }
+
+.flashes {
+    padding: 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.flashes li {
+    list-style: none;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 5px;
+    padding: 3px;
+    text-align: center;
+}
+
+.flashes .alert-danger {
+    background: mistyrose;
+}
+
+.flashes .alert-success {
+    background: lightgreen;
+}
