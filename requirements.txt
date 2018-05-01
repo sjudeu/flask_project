@@ -1,3 +1,4 @@
+alembic==0.9.9
 backcall==0.1.0
 click==6.7
 decorator==4.2.1
