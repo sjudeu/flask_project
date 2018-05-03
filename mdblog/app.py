@@ -116,8 +116,8 @@ def edit_article(art_id):
     if article:
         edit_form = ArticleForm(request.form)
         if edit_form.validate():
-            article.title = edit.form.title.data
-            article.content = edit.form.content.data
+            article.title = edit_form.title.data
+            article.content = edit_form.content.data
             db.session.add(article)
             db.session.commit()
             flash("Edit saved", "alert-success")
