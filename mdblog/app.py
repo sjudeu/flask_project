@@ -15,6 +15,7 @@ from wtforms.validators import InputRequired
 
 from .models import db
 from .models import Article
+from .models import User
 
 import os
 
@@ -37,6 +38,9 @@ class ArticleForm(FlaskForm):
     title = StringField("Title", validators=[InputRequired()])
     content = TextAreaField("Content")
 
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField("Old Password", validators=[InputRequired()])
+    new_password = PasswordField("New Password", validators=[InputRequired()])
 
 ## CONTROLLERS
 @flask_app.route("/")
@@ -136,9 +140,9 @@ def view_login():
 def login_user():
     login_form = LoginForm(request.form)
     if login_form.validate():
-        if login_form.username.data == flask_app.config["USERNAME"] and \
-                login_form.password.data == flask_app.config["PASSWORD"]:
-            session["logged"] = True
+        user = User.query.filter_by(username = login_form.username.data).first()
+        if user and user.check_password(login_form.password.data):
+            session["logged"] = user.username
             flash("Login successful", "alert-success")
             return redirect(url_for("view_admin"))
         else:
@@ -148,6 +152,34 @@ def login_user():
         for error in login_form.errors:
             flash("{} is missing".format(error), "alert-danger")
         return redirect(url_for("view_login"))
+
+@flask_app.route("/changepassword/", methods=["GET"])
+def view_change_password():
+    if "logged" not in session:
+        return redirect(url_for("view_login"))
+    form = ChangePasswordForm()
+    return render_template("change_password.jinja", form=form)
+
+@flask_app.route("/changepassword/", methods=["POST"])
+def change_password():
+    if "logged" not in session:
+        return redirect(url_for("view_login"))
+    form = ChangePasswordForm(request.form)
+    if form.validate():
+        user = User.query.filter_by(username = session["logged"]).first()
+        if user and user.check_password(form.old_password.data):
+            user.set_password(form.new_password.data)
+            db.session.add(user)
+            db.session.commit()
+            flash("Password changed!", "alert-success")
+            return redirect(url_for("view_admin"))
+        else:
+            flash("Invalid credentials", "alert-danger")
+            return render_template("change_password.jinja", form=form)
+    else:
+        for error in form.errors:
+            flash("{} is missing".format(error), "alert-danger")
+        return render_template("change_password.jinja", form=form)
 
 @flask_app.route("/logout/", methods=["POST"])
 def logout_user():
@@ -161,4 +193,11 @@ def init_db(app):
     with app.app_context():
         db.create_all()
         print("database inicialized")
+
+        default_user = User(username="admin")
+        default_user.set_password("admin")
+
+        db.session.add(default_user)
+        db.session.commit()
+        print("default user was created")
 
