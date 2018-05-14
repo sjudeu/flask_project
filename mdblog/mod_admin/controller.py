@@ -14,28 +14,26 @@ from .forms import ArticleForm
 from .forms import ChangePasswordForm
 from .forms import LoginForm
 
+from .utils import login_required
+
+
 admin = Blueprint("admin", __name__)
 
+
 @admin.route("/admin/")
+@login_required
 def view_admin():
-    if "logged" not in session:
-        flash("You must be logged in", "alert-danger")
-        return redirect(url_for("admin.view_login"))
     return render_template("mod_admin/admin.jinja")
 
 @admin.route("/articles/new/", methods=["GET"])
+@login_required
 def view_add_article():
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
-
     form = ArticleForm()
     return render_template("mod_admin/article_editor.jinja", form=form)
 
 @admin.route("/articles/", methods=["POST"])
+@login_required
 def add_article():
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
-
     add_form = ArticleForm(request.form)
     if add_form.validate():
         new_article = Article(
@@ -52,9 +50,8 @@ def add_article():
 
 
 @admin.route("/articles/<int:art_id>/edit/", methods=["GET"])
+@login_required
 def view_article_editor(art_id):
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
     article = Article.query.filter_by(id=art_id).first()
     if article:
         form = ArticleForm()
@@ -65,9 +62,8 @@ def view_article_editor(art_id):
 
 
 @admin.route("/articles/<int:art_id>/", methods=["POST"])
+@login_required
 def edit_article(art_id):
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
     article = Article.query.filter_by(id=art_id).first()
     if article:
         edit_form = ArticleForm(request.form)
@@ -106,16 +102,14 @@ def login_user():
         return redirect(url_for("admin.view_login"))
 
 @admin.route("/changepassword/", methods=["GET"])
+@login_required
 def view_change_password():
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
     form = ChangePasswordForm()
     return render_template("mod_admin/change_password.jinja", form=form)
 
 @admin.route("/changepassword/", methods=["POST"])
+@login_required
 def change_password():
-    if "logged" not in session:
-        return redirect(url_for("admin.view_login"))
     form = ChangePasswordForm(request.form)
     if form.validate():
         user = User.query.filter_by(username = session["logged"]).first()
@@ -134,6 +128,7 @@ def change_password():
         return render_template("mod_admin/change_password.jinja", form=form)
 
 @admin.route("/logout/", methods=["POST"])
+@login_required
 def logout_user():
     session.pop("logged")
     flash("Logout successful", "alert-success")
