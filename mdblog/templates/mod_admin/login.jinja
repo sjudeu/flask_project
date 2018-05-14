@@ -4,7 +4,7 @@
 
 {% block main %}
 
-<form action="{{ url_for("login_user") }}" method="post">
+<form action="{{ url_for("admin.login_user") }}" method="post">
     {{ form.csrf_token }}
     <p>
         {{ form.username.label }}
