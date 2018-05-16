@@ -56,3 +56,12 @@ footer {
 .flashes .alert-success {
     background: lightgreen;
 }
+
+.internal_error {
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 5px;
+    background: mistyrose;
+}

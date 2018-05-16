@@ -4,7 +4,7 @@ from mdblog.app import init_db
 import sys
 
 def start():
-    debug = True
+    debug = False
     host = "0.0.0.0"
     flask_app.run(host, debug=debug)
 
