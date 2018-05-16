@@ -8,7 +8,7 @@ blog = Blueprint("blog", __name__)
 
 @blog.route("/articles/", methods=["GET"])
 def view_articles():
-    articles = Article.order_by(Article.id.desc()).all()
+    articles = Article.query.order_by(Article.id.desc()).all()
     return render_template("mod_blog/articles.jinja", articles=articles)
 
 @blog.route("/articles/<int:art_id>/")
