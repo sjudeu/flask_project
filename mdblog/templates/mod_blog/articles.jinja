@@ -16,6 +16,35 @@
             </li>
         {% endfor %}
         </ul>
+
+        <ul class="paginate">
+        
+        {% if paginate.has_prev %}
+            <li>
+                <a href={{url_for("blog.view_articles", page=paginate.prev_num)}}> prev</a>
+            </li>
+        {% endif %}
+
+        {%- for page in paginate.iter_pages() %}
+            {% if page %}
+                {% if page != paginate.page %}
+                    <li> <a href={{ url_for("blog.view_articles", page=page) }}> {{page }} </a></li>
+                {% else %}
+                    <li> {{page}} </li>
+                {% endif %}
+            {% else %}
+                <li> ... </li>
+            {% endif %}
+        {%- endfor %}
+
+        {% if paginate.has_next %}
+            <li>
+                <a href={{url_for("blog.view_articles", page=paginate.next_num)}}> next</a>
+            </li>
+        {% endif %}
+
+        </ul>
+
     {% else %}
         <p> No Articles :( </p>
     {% endif %}
