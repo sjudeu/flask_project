@@ -1,14 +1,20 @@
 <nav>
-    <ul class=nav>
-      <li> <a href="{{ url_for("main.view_about") }}">About</a> </li>
-      <li> <a href="{{ url_for("blog.view_articles") }}">Articles</a> </li>
-      <li> <a href="{{ url_for("admin.view_admin") }}">Admin</a> </li>
-      {% if "logged" in session %}
-        <li>
-            <form action="{{ url_for("admin.logout_user") }}" method="post">
-                <input type="submit" value="logout">
-            </form>
-        </li>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for("main.view_about") }}>About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for("blog.view_articles") }}>Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for("admin.view_admin") }}>Admin</a>
+      </li>
+      {% if session.logged %}
+      <li class="nav-item">
+        <form action="{{url_for("admin.logout_user")}}" method="post">
+            <button type="submit" class="btn btn-outline-primary" href={{ url_for("admin.view_admin") }}>Logout</a>
+        </form>
+      </li>
       {% endif %}
     </ul>
 </nav>

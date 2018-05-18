@@ -4,17 +4,23 @@
 
 {% block main %}
 
-<form action="{{ url_for("admin.login_user") }}" method="post">
-    {{ form.csrf_token }}
-    <p>
-        {{ form.username.label }}
-        {{ form.username() }}
-    </p>
-    <p>
-        {{ form.password.label }}
-        {{ form.password() }}
-    </p>
-    <input type="submit" value="login">
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form action="{{url_for("admin.login_user")}}", method=post>
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username(size=20, class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }} 
+                    {{ form.password(class="form-control") }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div> {# col 6 #}
+    </div> {# row #}
+</div> {# container #}
 
 {% endblock %}

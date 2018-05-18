@@ -17,7 +17,7 @@ db.init_app(flask_app)
 
 flask_app.register_blueprint(main)
 flask_app.register_blueprint(blog)
-flask_app.register_blueprint(admin)
+flask_app.register_blueprint(admin, url_prefix="/admin")
 
 @flask_app.errorhandler(500)
 def internal_server_error(error):

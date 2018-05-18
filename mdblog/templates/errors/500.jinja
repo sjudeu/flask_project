@@ -3,11 +3,20 @@
 {% block title %} Error! {% endblock %}
 
 {% block main %}
-    <div class="internal_error">
-        <p>
-        Ooops! Error occured. Sorry, unknow error occured. Please contact
-        <a href="mailto:support@blabla.sk">support</a>
-        </p>
+<div class="row ">
+    <div class="col-md-12">
+        <div class="error-template">
+            <h1>Oops!</h1>
+            <h2>500 Error occured</h2>
+            <div class="error-details">
+                Sorry, unknown error occured.
+            </div>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary btn-lg"> Home </a>
+                <a href="mailto:admin@blabla.sk" class="btn btn-default btn-lg"> Support </a>
+            </div>
+        </div>
     </div>
+</div>
 {% endblock %}
 

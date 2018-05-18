@@ -8,22 +8,31 @@
 
 {% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
-        <ul class="flashes">
         {% for category, message in messages %}
-            <li class="{{ category }}"> {{ message }} </li>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-9">
+                    <div class="alert {{ category }} alert-dismissible" data-dismiss="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        </ul>
     {% endif %}
 {% endwith %}
 
 <body>
 <header>
-    <h1> <a href="{{ url_for("main.view_welcome_page") }}"> Severin Murcina </a></h1>
+    <h1 class="header"> <a href="{{ url_for("main.view_welcome_page") }}"> Severin Murcina </a></h1>
 </header>
 
 {% include "_nav.jinja" %}
 
-<main>
+<main class="container">
     {% block main %} {% endblock %}
 </main>
 

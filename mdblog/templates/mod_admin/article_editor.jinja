@@ -10,14 +10,14 @@
 <form action="{{ url_for("admin.add_article") }}" method="post">
 {% endif %}
     {{ form.csrf_token }}
-    <p>
+    <div class="form-group">
         {{ form.title.label }}
-        {{ form.title() }}
-    </p>
-    <p>
+        {{ form.title(class="form-control", placeholder="Article title") }}
+    </div>
+    <div class="form-group">
         {{ form.content.label }}
         {{ form.content() }}
-    </p>
+    </div>
     <input type="submit" value="save">
 </form>
 

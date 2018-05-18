@@ -20,10 +20,15 @@ from .utils import login_required
 admin = Blueprint("admin", __name__)
 
 
-@admin.route("/admin/")
+@admin.route("/")
 @login_required
 def view_admin():
-    return render_template("mod_admin/admin.jinja")
+    page=request.args.get("page", 1, type=int)
+    paginate = Article.query.order_by(Article.id.desc()).paginate(
+            page, 10, False)
+    return render_template("mod_admin/admin.jinja",
+            articles=paginate.items,
+            paginate=paginate)
 
 @admin.route("/articles/new/", methods=["GET"])
 @login_required

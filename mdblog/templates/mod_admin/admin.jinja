@@ -1,8 +1,66 @@
 {% extends "_main.jinja" %}
 
-{% block title %} Admin page {% endblock %}
-
+{% block title %} Admin {% endblock %}
 
 {% block main %}
-    <a href="{{ url_for("admin.view_change_password") }}">change password</a>
+<h2> Settings </h2>
+<p><a href={{ url_for("admin.view_change_password") }}>Change password</a></p>
+<p><a href=#>Other function</a></p>
+<p><a href=#>Other other function</a></p>
+<hr/>
+
+<h2> Articles </h2>
+<a href={{ url_for(".view_add_article") }} role="button" class="btn btn-primary">Add new article</a>
+
+{# CREATE TABLE #}
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    {# TABLE LOOP #}
+    {% for article in articles %}
+        <tr>
+            <th> {{ article.id }}</td>
+            <td> <a href={{ url_for(".view_article_editor", art_id=article.id) }}> {{ article.title }} </a> </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{# PAGINATION #}
+<ul class="pagination justify-content-center mt-3">
+
+{# add previous button #}
+{% if paginate.has_prev %}
+    <li class="page-item">
+        <a class="page-link" href={{url_for(".view_admin", page=paginate.prev_num)}} >Previous</a>
+    </li>
+{% endif %}
+
+
+{# ADD NUMBERED LINKS #}
+{%- for page in paginate.iter_pages() %}
+    {% if page %}
+        {% if page != paginate.page %}
+            <li class="page-item"> <a class="page-link" href={{ url_for(".view_admin", page=page) }}>{{page}}</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link">{{ page }}</a></li>
+        {% endif %}
+    {% else %}
+        <li class="page-item"><span class="ellipsis"> ...</span></li>
+    {% endif %}
+{%- endfor %}
+
+{# add next button #}
+{% if paginate.has_next %}
+    <li class="page-item">
+        <a class="page-link" href={{url_for(".view_admin", page=paginate.next_num)}} >Next</a>
+    </li>
+{% endif %}
+</ul>
 {% endblock %}
