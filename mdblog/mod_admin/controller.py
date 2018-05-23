@@ -43,7 +43,8 @@ def add_article():
     if add_form.validate():
         new_article = Article(
                 title = add_form.title.data,
-                content = add_form.content.data)
+                content = add_form.content.data,
+                html_render = add_form.html_render.data)
         db.session.add(new_article)
         db.session.commit()
         flash("Article was saved", "alert-success")
@@ -75,6 +76,7 @@ def edit_article(art_id):
         if edit_form.validate():
             article.title = edit_form.title.data
             article.content = edit_form.content.data
+            article.html_render = edit_form.html_render.data
             db.session.add(article)
             db.session.commit()
             flash("Edit saved", "alert-success")

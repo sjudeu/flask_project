@@ -3,7 +3,9 @@
 
 <head>
     <title> {% block title %} {% endblock %} </title>
-    {% include "_head.jinja" %}
+    {% block head %}
+        {% include "_head.jinja" %}
+    {% endblock %}
 </head>
 
 {% with messages = get_flashed_messages(with_categories=True) %}

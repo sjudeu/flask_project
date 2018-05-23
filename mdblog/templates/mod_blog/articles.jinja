@@ -16,7 +16,7 @@
                     {{ article.title }}
                 </a>
             </h3>
-            {{ article.content | truncate(100)}}
+            {{ article.html_render | truncate(100)}}
         </div> {# media body #}
     </article>
     {% endfor %}
