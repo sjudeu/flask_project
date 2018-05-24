@@ -6,6 +6,8 @@ from .mod_main import main
 from .mod_blog import blog
 from .mod_admin import admin
 
+from .mod_main.forms import NewsletterForm
+
 
 import os
 
@@ -26,6 +28,10 @@ def internal_server_error(error):
 @flask_app.errorhandler(404)
 def internal_server_error(error):
     return render_template("errors/404.jinja"), 404
+
+@flask_app.context_processor
+def inject_newsletter_form():
+    return dict(newsletter_form = NewsletterForm())
 
 ## CLI COMMAND
 def init_db(app):
