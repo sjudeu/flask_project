@@ -1,5 +1,5 @@
-from mdblog.app import flask_app
-from mdblog.app import init_db
+from mdblog.cli import flask_app
+from mdblog.cli import init_db
 
 import sys
 

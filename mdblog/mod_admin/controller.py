@@ -16,6 +16,8 @@ from .forms import LoginForm
 
 from .utils import login_required
 
+from mdblog.tasks import notify_newsletter
+
 
 admin = Blueprint("admin", __name__)
 
@@ -48,6 +50,11 @@ def add_article():
         db.session.add(new_article)
         db.session.commit()
         flash("Article was saved", "alert-success")
+
+        article_url = url_for("blog.view_article", art_id=new_article.id)
+        article_url = request.url_root + article_url[1:]
+        notify_newsletter.delay(article_url)
+
         return redirect(url_for("blog.view_articles"))
     else:
         for error in add_form.errors:
