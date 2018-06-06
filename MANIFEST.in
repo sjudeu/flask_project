@@ -1,0 +1,2 @@
+graft mdblog
+global-exclude *.py[cod] __pycache__
